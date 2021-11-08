@@ -45,15 +45,15 @@ struct Line {
     }
 
     Line parallel(const Point &p) {
-        return Line(A, B, -(p.x + p.y));
+        return Line(A, B, -(A * p.x + B * p.y));
     }
 
     bool perpendicular(const Line &other) const {
-        return true;
+        return (A == other.B) && (B == -other.A);
     }
 
     Line perpendicular(const Point &p) {
-        return Line(0, 0, 0);
+        return Line(-B, A, -((-B * p.x) + A * p.y));
     }
 
     void print(ostream &out) const {
