@@ -11,20 +11,20 @@ struct Point {
 
     Point(double x = 0, double y = 0) : x(x), y(y) {}
 
-    void print(ostream& out) const {
-        out<< "("<< x<< ", "<< y<< ")";
+    void print(ostream &out) const {
+        out << "(" << x << ", " << y << ")";
     }
 };
 
-ostream& operator<<(ostream& out, const Point& p) {
+ostream &operator<<(ostream &out, const Point &p) {
     p.print(out);
     return out;
 }
 
-istream& operator>>(istream& in, Point& p) {
+istream &operator>>(istream &in, Point &p) {
     in >> p.x;
     in >> p.y;
-    
+
     return in;
 }
 
@@ -33,40 +33,42 @@ struct Line {
 
     Line(double A = 0, double B = 0, double C = 0) : A(A), B(B), C(C) {}
 
-    Line(const Point& p1, const Point& p2) {
-        A = 0; B = 0; C = 0;
+    Line(const Point &p1, const Point &p2) {
+        A = p2.y - p1.y;
+        B = p2.x - p1.x;
+        C = -((p2.y - p1.y) * p1.x + (p1.x - p2.x) * p1.y);
     }
 
-    bool parallel(const Line& other) const {
+    bool parallel(const Line &other) const {
         return true;
     }
 
-    Line parallel(const Point& p) {
-        return Line(0,0,0);
+    Line parallel(const Point &p) {
+        return Line(0, 0, 0);
     }
 
-    bool perpendicular(const Line& other) const {
+    bool perpendicular(const Line &other) const {
         return true;
     }
 
-    Line perpendicular(const Point& p) {
-        return Line(0,0,0);
+    Line perpendicular(const Point &p) {
+        return Line(0, 0, 0);
     }
 
-    void print(ostream& out) const {
-        out<< A << "x + "<< B<< "y + "<< C<< " = 0";
+    void print(ostream &out) const {
+        out << A << "x + " << B << "y + " << C << " = 0";
     }
 };
 
-ostream& operator<<(ostream& out, const Line& l) {
+ostream &operator<<(ostream &out, const Line &l) {
     l.print(out);
     return out;
 }
 
-istream& operator>>(istream& in, Line& l) {
+istream &operator>>(istream &in, Line &l) {
     in >> l.A;
     in >> l.B;
     in >> l.C;
-    
+
     return in;
 }
