@@ -36,15 +36,16 @@ struct Line {
     Line(const Point &p1, const Point &p2) {
         A = p2.y - p1.y;
         B = p2.x - p1.x;
-        C = -((p2.y - p1.y) * p1.x + (p1.x - p2.x) * p1.y);
+        // C = -((p2.y - p1.y) * p1.x + (p1.x - p2.x) * p1.y);
+        C = -(A * p1.x + B * p1.y);
     }
 
     bool parallel(const Line &other) const {
-        return true;
+        return (A * other.B == B * other.A) && (A * other.C != C * other.A);
     }
 
     Line parallel(const Point &p) {
-        return Line(0, 0, 0);
+        return Line(A, B, -(p.x + p.y));
     }
 
     bool perpendicular(const Line &other) const {
